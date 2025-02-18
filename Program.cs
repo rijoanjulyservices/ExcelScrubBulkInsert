@@ -1,4 +1,5 @@
 ﻿using ExcelBulkInsert;
+using System.Text.RegularExpressions;
 
 class Program
 {
@@ -9,7 +10,7 @@ class Program
             //Console.WriteLine("Enter Excel file path:");
             //var filePath = Console.ReadLine();
             //var filePath = @"C:\Users\rijoan\Downloads\ok.xlsm";
-            var filePath = @"C:\Users\rijoan\Downloads\Black Cat LLC 401(k) Plan_CensusDataImport_09.01.2024.xlsm";
+            var filePath = @"C:\Users\rijoan\Downloads\JFK Electric, LLC 401(k) Plan_CensusDataImport_09.30.2024.xlsm";
 
             // Read Excel file
             var excelReader = new ExcelReader();
@@ -17,7 +18,9 @@ class Program
 
             // Generate table name (e.g., based on file name)
             var tableName = Path.GetFileNameWithoutExtension(filePath);
-            tableName = tableName.Replace(" ", "").Replace(".", "_").Replace("(", "").Replace(")", "");
+            //tableName = tableName.Replace(" ", "").Replace(".", "_").Replace("(", "").Replace(")", "").Replace(",", "");
+            tableName = Regex.Replace(tableName, @"[ .(),]", "");
+
 
             // Initialize services
             var connectionString = "Server=SWD-RIJOAN-L;Database=TestDB;User ID=jahangir;Password=Baylor123;Integrated Security=true;TrustServerCertificate=True;";
