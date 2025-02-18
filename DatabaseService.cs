@@ -61,5 +61,16 @@ namespace ExcelBulkInsert
                 return command.ExecuteScalar() != null;
             }
         }
+        public void ExecuteCommand(string commandText)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var command = new SqlCommand(commandText, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
